@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import PlaylistsList from "../components/PlaylistsList";
 
-import useFeaturedPlaylists from "../hooks/useFeaturedPlaylists";
+import { useFeaturedPlaylists } from "../hooks";
 
 const FeaturedPlaylists = () => {
   const { message, playlists, loadMore, error } = useFeaturedPlaylists();

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getPlaylists } from "../api/playlists";
+import { getPlaylists } from "../api";
 import { PlaylistItem } from "../types/playlists";
 
 const useFeaturedPlaylists = () => {
@@ -11,6 +11,7 @@ const useFeaturedPlaylists = () => {
     (async () => {
       try {
         const response = await getPlaylists();
+
         setPlaylists(response.playlists.items);
         setMessage(response.message);
       } catch (error) {

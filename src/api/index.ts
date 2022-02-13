@@ -1,4 +1,5 @@
 import { BASE_URL } from "../constants/api";
+import { PlaylistByIdResponse } from "../types/playlist";
 import { PlaylistsResponse } from "../types/playlists";
 
 export const getPlaylists = async (
@@ -11,7 +12,9 @@ export const getPlaylists = async (
   return json;
 };
 
-export const getPlaylistById = async (id: string) => {
+export const getPlaylistById = async (
+  id: string
+): Promise<PlaylistByIdResponse> => {
   const response = await fetch(`${BASE_URL}/v1/playlists/${id}`);
   const json = await response.json();
   return json;

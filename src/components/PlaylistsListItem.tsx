@@ -1,5 +1,6 @@
 import { TouchableOpacity, Image, StyleSheet } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { RootStackParamList } from "../navigation";
 
 export interface PlaylistsListItemProps {
   id: string;
@@ -7,7 +8,7 @@ export interface PlaylistsListItemProps {
 }
 
 export const PlaylistsListItem = ({ id, imageUrl }: PlaylistsListItemProps) => {
-  const { navigate } = useNavigation<any>();
+  const { navigate } = useNavigation<NavigationProp<RootStackParamList>>();
 
   const handlePress = () => navigate("PlaylistDetails", { id });
 
