@@ -5,7 +5,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { RootStackParamList } from "../navigation";
 import { usePlaylistDetails } from "../hooks";
 import PlaylistHeader from "../components/PlaylistHeader";
-import SongsList from "../components/SongsList";
+import TracksList from "../components/TracksList";
 
 export interface PlaylistDetailsProps {
   navigation: NavigationProp<RootStackParamList>;
@@ -28,7 +28,7 @@ const PlaylistDetails = ({ navigation, route }: PlaylistDetailsProps) => {
           followers={playlist.followers.total}
           owner={playlist.owner.display_name}
         />
-        <SongsList items={playlist.tracks.items} />
+        <TracksList items={playlist.tracks.items} />
       </SafeAreaView>
     );
 

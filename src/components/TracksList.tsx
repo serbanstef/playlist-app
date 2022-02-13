@@ -1,15 +1,15 @@
 import { StyleSheet, FlatList, ListRenderItem } from "react-native";
 
-import Song from "./Song";
+import Track from "./Track";
 import { Item } from "../types/playlist";
 
-export interface SongsListProps {
+export interface TracksListProps {
   items: Item[];
 }
 
 const renderItem: ListRenderItem<Item> = ({ item }) => {
   return (
-    <Song
+    <Track
       author={item.track.artists[0].name}
       title={item.track.name}
       audioUrl={item.track.preview_url}
@@ -19,7 +19,7 @@ const renderItem: ListRenderItem<Item> = ({ item }) => {
 
 const keyExtractor = (item: Item) => item.track.id;
 
-const SongsList = ({ items }: SongsListProps) => {
+const TracksList = ({ items }: TracksListProps) => {
   return (
     <FlatList
       data={items}
@@ -30,7 +30,7 @@ const SongsList = ({ items }: SongsListProps) => {
   );
 };
 
-export default SongsList;
+export default TracksList;
 
 const styles = StyleSheet.create({
   container: {

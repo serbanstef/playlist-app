@@ -1,12 +1,12 @@
 import { Text, TouchableOpacity, StyleSheet } from "react-native";
 
-export interface SongProps {
+export interface TrackProps {
   author: string;
   title: string;
   audioUrl?: string;
 }
 
-const Song = ({ author, title, audioUrl }: SongProps) => {
+const Track = ({ author, title, audioUrl }: TrackProps) => {
   return (
     <TouchableOpacity style={styles.container} disabled={!audioUrl}>
       <Text style={{ color: audioUrl ? "white" : "#363636" }}>{author}</Text>
@@ -22,4 +22,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Song;
+export default Track;
