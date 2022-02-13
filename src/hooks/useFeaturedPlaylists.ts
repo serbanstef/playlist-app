@@ -11,7 +11,6 @@ const useFeaturedPlaylists = () => {
     (async () => {
       try {
         const response = await getPlaylists();
-
         setPlaylists(response.playlists.items);
         setMessage(response.message);
       } catch (error) {

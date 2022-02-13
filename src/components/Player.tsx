@@ -14,10 +14,30 @@ const Player = ({ track }: PlayerProps) => {
   const [isPlaying, setIsPlaying] = useState(true);
   const soundRef = useRef<Audio.Sound>();
 
+  // handles new track selection
   useEffect(() => {
     (async () => {
       if (soundRef.current) {
-        await soundRef.current.unloadAsync();
+        try {
+          await soundRef.current.unloadAsync();
+          const { sound } = await Audio.Sound.createAsync(
+            { uri: track.url },
+            { shouldPlay: true },
+            () => {},
+            false
+          );
+          setIsPlaying(true);
+          soundRef.current = sound;
+        } catch (error) {
+          // do something
+        }
+      }
+    })();
+  }, [track]);
+
+  useEffect(() => {
+    (async () => {
+      try {
         const { sound } = await Audio.Sound.createAsync(
           { uri: track.url },
           { shouldPlay: true },
@@ -25,27 +45,17 @@ const Player = ({ track }: PlayerProps) => {
           false
         );
         soundRef.current = sound;
+      } catch (error) {
+        // do somenthing
       }
-    })();
-  }, [track]);
-
-  useEffect(() => {
-    (async () => {
-      const { sound } = await Audio.Sound.createAsync(
-        { uri: track.url },
-        { shouldPlay: true },
-        () => {},
-        false
-      );
-      soundRef.current = sound;
     })();
   }, []);
 
-  const handleButtonPress = () => {
+  const handleButtonPress = async () => {
     if (isPlaying) {
-      soundRef.current?.pauseAsync();
+      await soundRef.current?.pauseAsync();
     } else {
-      soundRef.current?.playAsync();
+      await soundRef.current?.playAsync();
     }
     setIsPlaying(!isPlaying);
   };
@@ -53,10 +63,8 @@ const Player = ({ track }: PlayerProps) => {
   return (
     <View style={[styles.container, { marginBottom: bottom }]}>
       <View>
-        <Text style={{ color: "white", fontWeight: "bold" }}>
-          {track.title}
-        </Text>
-        <Text style={{ color: "gray" }}>{track.artist}</Text>
+        <Text style={styles.title}>{track.title}</Text>
+        <Text style={styles.subTitle}>{track.artist}</Text>
       </View>
       <TouchableOpacity style={styles.button} onPress={handleButtonPress}>
         <Ionicons
@@ -94,5 +102,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginRight: 10,
+  },
+  title: {
+    color: "white",
+    fontWeight: "bold",
+  },
+  subTitle: {
+    color: "gray",
   },
 });

@@ -1,4 +1,4 @@
-import { BASE_URL } from "../constants/api";
+import { BASE_URL } from "../constants";
 import { PlaylistByIdResponse } from "../types/playlist";
 import { PlaylistsResponse } from "../types/playlists";
 
