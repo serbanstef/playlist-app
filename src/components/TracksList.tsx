@@ -10,9 +10,9 @@ export interface TracksListProps {
 const renderItem: ListRenderItem<Item> = ({ item }) => {
   return (
     <Track
-      author={item.track.artists[0].name}
+      artist={item.track.artists[0].name}
       title={item.track.name}
-      audioUrl={item.track.preview_url}
+      url={item.track.preview_url}
     />
   );
 };

@@ -1,19 +1,30 @@
 import { Text, TouchableOpacity, StyleSheet } from "react-native";
+import { usePlayer } from "../contexts/PlayerContext";
 
 export interface TrackProps {
-  author: string;
+  artist: string;
   title: string;
-  audioUrl?: string;
+  url?: string;
 }
 
-const Track = ({ author, title, audioUrl }: TrackProps) => {
+const Track = ({ artist, title, url }: TrackProps) => {
+  const { playTrack } = usePlayer();
+
+  const handleTrackPress = () => url && playTrack({ artist, title, url });
+
   return (
-    <TouchableOpacity style={styles.container} disabled={!audioUrl}>
-      <Text style={{ color: audioUrl ? "white" : "#363636" }}>{author}</Text>
-      <Text style={{ color: audioUrl ? "gray" : "#363636" }}>{title}</Text>
+    <TouchableOpacity
+      style={styles.container}
+      disabled={!url}
+      onPress={handleTrackPress}
+    >
+      <Text style={{ color: url ? "white" : "#363636" }}>{artist}</Text>
+      <Text style={{ color: url ? "gray" : "#363636" }}>{title}</Text>
     </TouchableOpacity>
   );
 };
+
+export default Track;
 
 const styles = StyleSheet.create({
   container: {
@@ -21,5 +32,3 @@ const styles = StyleSheet.create({
     height: 55,
   },
 });
-
-export default Track;

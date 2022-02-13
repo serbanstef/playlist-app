@@ -1,11 +1,15 @@
 import { StatusBar } from "expo-status-bar";
-import Navigation from "./src/navigation";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import App from "./src";
+import { PlayerProvider } from "./src/contexts/PlayerContext";
 
-export default function App() {
+export default function AppWrapper() {
   return (
-    <>
-      <Navigation />
-      <StatusBar style="light" />
-    </>
+    <SafeAreaProvider>
+      <PlayerProvider>
+        <App />
+        <StatusBar style="light" />
+      </PlayerProvider>
+    </SafeAreaProvider>
   );
 }
