@@ -1,9 +1,10 @@
 import { View, Text, StyleSheet } from "react-native";
 import { NavigationProp, RouteProp } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { RootStackParamList } from "../navigation";
 
+import { RootStackParamList } from "../navigation";
 import { usePlaylistDetails } from "../hooks";
+import PlaylistHeader from "../components/PlaylistHeader";
 
 export interface PlaylistDetailsProps {
   navigation: NavigationProp<RootStackParamList>;
@@ -13,14 +14,23 @@ export interface PlaylistDetailsProps {
 const PlaylistDetails = ({ navigation, route }: PlaylistDetailsProps) => {
   const { playlist, error } = usePlaylistDetails(route.params.id);
 
-  if (error) {
-    // handle api error
-    return null;
-  }
+  // handle api error
+  if (error) return null;
 
-  return <SafeAreaView style={styles.container}>
-    <Text style={{color: 'white'}}>{playlist?.name}</Text>
-  </SafeAreaView>;
+  if (playlist)
+    return (
+      <SafeAreaView style={styles.container}>
+        <PlaylistHeader
+          name={playlist?.name}
+          description={playlist.description}
+          imageUrl={playlist.images[0].url}
+          followers={playlist.followers.total}
+          owner={playlist.owner.display_name}
+        />
+      </SafeAreaView>
+    );
+
+  return null;
 };
 
 export default PlaylistDetails;
@@ -29,5 +39,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: 15,
+    paddingHorizontal: 20
   },
 });
